@@ -411,13 +411,13 @@ AM_CPPFLAGS = \
 EXTRA_PROGRAMS = errcodes printlist alert-printlist
 
 errcodes_SOURCES = errcodes.c common.c common.h
-errcodes_LDADD = ../lib/libgnutls.la ../gl/libgnu.la
+errcodes_LDADD = ../lib/libgnutls.la ../gl/libgnu.la -ldl
 
 printlist_SOURCES = printlist.c common.c common.h
-printlist_LDADD = ../lib/libgnutls.la ../gl/libgnu.la
+printlist_LDADD = ../lib/libgnutls.la ../gl/libgnu.la -ldl
 
 alert_printlist_SOURCES = alert-printlist.c common.c common.h
-alert_printlist_LDADD = ../lib/libgnutls.la ../gl/libgnu.la
+alert_printlist_LDADD = ../lib/libgnutls.la ../gl/libgnu.la -ldl
 
 error_codes.texi: $(top_srcdir)/lib/errors.c $(srcdir)/errcodes.c
 	$(MAKE) $(builddir)/errcodes

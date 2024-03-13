@@ -32,7 +32,7 @@ AM_CPPFLAGS += -D_GL_NO_LARGE_FILES -DNO_LIBCURL
 
 AM_LDFLAGS = -no-install
 LDADD = libexamples.la				\
-	../../lib/libgnutls.la			\
+	../../lib/libgnutls.la		-ldl	\
 	../../gl/libgnu.la			\
 	../../src/gl/libgnu_gpl.la		\
 	$(LIBSOCKET) $(INET_NTOP_LIB) $(INET_PTON_LIB)

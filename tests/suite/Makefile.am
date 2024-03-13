@@ -30,7 +30,7 @@ AM_CPPFLAGS = \
 
 check_PROGRAMS = rng prime-check
 AM_LDFLAGS = -no-install
-LDADD = ../../lib/libgnutls.la \
+LDADD = ../../lib/libgnutls.la -ldl \
 	../../gl/libgnu.la \
 	../libutils.la \
 	$(LIBSOCKET) $(INET_NTOP_LIB) $(INET_PTON_LIB)

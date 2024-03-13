@@ -82,15 +82,15 @@ noinst_PROGRAMS =
 
 if ENABLE_SRP
 srptool_SOURCES = srptool.c
-srptool_LDADD = ../lib/libgnutls.la libcmd-srp.la ../gl/libgnu.la 
+srptool_LDADD = ../lib/libgnutls.la -ldl libcmd-srp.la ../gl/libgnu.la 
 srptool_LDADD += $(LTLIBINTL) gl/libgnu_gpl.la
 noinst_LTLIBRARIES += libcmd-srp.la
 libcmd_srp_la_SOURCES = srptool-options.c srptool-options.h
 endif
 
 psktool_SOURCES = psk.c
-psktool_LDADD = ../lib/libgnutls.la libcmd-psk.la ../gl/libgnu.la 
-psktool_LDADD += $(LTLIBINTL) gl/libgnu_gpl.la
+psktool_LDADD = ../lib/libgnutls.la -ldl libcmd-psk.la ../gl/libgnu.la 
+psktool_LDADD += $(LTLIBINTL) gl/libgnu_gpl.la 
 noinst_LTLIBRARIES += libcmd-psk.la
 libcmd_psk_la_SOURCES = psktool-options.c psktool-options.h
 
@@ -99,7 +99,7 @@ if ENABLE_OCSP
 
 ocsptool_SOURCES = ocsptool.c ocsptool-common.h ocsptool-common.c certtool-common.c \
 	socket.c common.c common.h socket.h
-ocsptool_LDADD = ../lib/libgnutls.la libcmd-ocsp.la ../gl/libgnu.la 
+ocsptool_LDADD = ../lib/libgnutls.la -ldl libcmd-ocsp.la ../gl/libgnu.la 
 ocsptool_LDADD += $(LTLIBINTL) $(GETADDRINFO_LIB) gl/libgnu_gpl.la $(LIBIDN_LIBS)
 noinst_LTLIBRARIES += libcmd-ocsp.la
 libcmd_ocsp_la_SOURCES = ocsptool-options.h ocsptool-options.c
@@ -111,7 +111,7 @@ gnutls_serv_SOURCES =		\
   udp-serv.c udp-serv.h		\
   common.h common.c		\
   certtool-common.h 
-gnutls_serv_LDADD = ../lib/libgnutls.la
+gnutls_serv_LDADD = ../lib/libgnutls.la -ldl
 gnutls_serv_LDADD += libcmd-serv.la ../gl/libgnu.la
 gnutls_serv_LDADD += $(LTLIBINTL) gl/libgnu_gpl.la
 gnutls_serv_LDADD += $(LIBSOCKET) $(GETADDRINFO_LIB) $(LIBIDN_LIBS)
@@ -126,7 +126,7 @@ gnutls_cli_SOURCES = cli.c common.h common.c \
 if ENABLE_OCSP
 gnutls_cli_SOURCES += ocsptool-common.c
 endif
-gnutls_cli_LDADD = ../lib/libgnutls.la -lm
+gnutls_cli_LDADD = ../lib/libgnutls.la -lm -ldl
 if ENABLE_DANE
 gnutls_cli_LDADD += ../libdane/libgnutls-dane.la
 endif
@@ -138,7 +138,7 @@ libcmd_cli_la_SOURCES = gnutls-cli-options.c gnutls-cli-options.h
 
 gnutls_cli_debug_SOURCES = cli-debug.c tests.h tests.c \
 		socket.c socket.h common.h common.c
-gnutls_cli_debug_LDADD = ../lib/libgnutls.la libcmd-cli-debug.la 
+gnutls_cli_debug_LDADD = ../lib/libgnutls.la -ldl libcmd-cli-debug.la 
 gnutls_cli_debug_LDADD += ../gl/libgnu.la gl/libgnu_gpl.la
 gnutls_cli_debug_LDADD += $(LTLIBINTL) $(LIBIDN_LIBS)
 gnutls_cli_debug_LDADD += $(LIBSOCKET) $(GETADDRINFO_LIB)
@@ -156,19 +156,19 @@ endif
 
 
 certtool_SOURCES = certtool.c certtool-common.c certtool-extras.c common.c
-certtool_LDADD = ../lib/libgnutls.la 
+certtool_LDADD = ../lib/libgnutls.la  -ldl
 certtool_LDADD += libcmd-certtool.la ../gl/libgnu.la gl/libgnu_gpl.la
 
 noinst_LTLIBRARIES += libcmd-certtool.la
 libcmd_certtool_la_SOURCES = certtool-options.c certtool-options.h
-libcmd_certtool_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la gl/libgnu_gpl.la ../gl/libgnu.la 
+libcmd_certtool_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la -ldl gl/libgnu_gpl.la ../gl/libgnu.la 
 libcmd_certtool_la_LIBADD += $(COMMON_LIBS)
 libcmd_certtool_la_LIBADD += $(LTLIBREADLINE) gl/libgnu_gpl.la
 libcmd_certtool_la_LIBADD += $(INET_PTON_LIB) $(LIB_CLOCK_GETTIME)
 
 
 danetool_SOURCES = danetool.c certtool-common.c certtool-extras.c common.c socket.c
-danetool_LDADD = ../lib/libgnutls.la  $(LIBIDN_LIBS)
+danetool_LDADD = ../lib/libgnutls.la -ldl $(LIBIDN_LIBS)
 danetool_LDADD += libcmd-danetool.la ../gl/libgnu.la gl/libgnu_gpl.la
 if ENABLE_DANE
 danetool_LDADD += ../libdane/libgnutls-dane.la
@@ -176,7 +176,7 @@ endif
 
 noinst_LTLIBRARIES += libcmd-danetool.la
 libcmd_danetool_la_SOURCES = danetool-options.c danetool-options.h
-libcmd_danetool_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la gl/libgnu_gpl.la ../gl/libgnu.la 
+libcmd_danetool_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la -ldl gl/libgnu_gpl.la ../gl/libgnu.la 
 libcmd_danetool_la_LIBADD += $(COMMON_LIBS)
 libcmd_danetool_la_LIBADD += $(LTLIBREADLINE)
 libcmd_danetool_la_LIBADD += $(INET_PTON_LIB) $(LIB_CLOCK_GETTIME)
@@ -188,13 +188,13 @@ BUILT_SOURCES += mech-list.h
 p11tool_SOURCES = p11tool-options.json p11tool.c pkcs11.c certtool-common.c \
 	certtool-extras.c p11tool.h common.c mech-list.h
 p11tool_CPPFLAGS = $(AM_CPPFLAGS) $(P11_KIT_CFLAGS)
-p11tool_LDADD = ../lib/libgnutls.la
+p11tool_LDADD = ../lib/libgnutls.la -ldl
 p11tool_LDADD += libcmd-p11tool.la ../gl/libgnu.la gl/libgnu_gpl.la
 p11tool_LDADD += $(COMMON_LIBS)
 
 noinst_LTLIBRARIES += libcmd-p11tool.la
 libcmd_p11tool_la_SOURCES = p11tool-options.c p11tool-options.h
-libcmd_p11tool_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la gl/libgnu_gpl.la ../gl/libgnu.la 
+libcmd_p11tool_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la -ldl gl/libgnu_gpl.la ../gl/libgnu.la 
 libcmd_p11tool_la_LIBADD += $(LTLIBREADLINE) $(INET_PTON_LIB) $(LIB_CLOCK_GETTIME)
 
 endif # ENABLE_PKCS11
@@ -202,26 +202,26 @@ endif # ENABLE_PKCS11
 if ENABLE_TROUSERS
 
 tpmtool_SOURCES = tpmtool-options.json tpmtool.c certtool-common.c certtool-extras.c common.c
-tpmtool_LDADD = ../lib/libgnutls.la
+tpmtool_LDADD = ../lib/libgnutls.la -ldl
 tpmtool_LDADD += libcmd-tpmtool.la ../gl/libgnu.la gl/libgnu_gpl.la
 tpmtool_LDADD += $(COMMON_LIBS)
 
 noinst_LTLIBRARIES += libcmd-tpmtool.la
 libcmd_tpmtool_la_SOURCES = tpmtool-options.c tpmtool-options.h
-libcmd_tpmtool_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la gl/libgnu_gpl.la ../gl/libgnu.la 
+libcmd_tpmtool_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la -ldl gl/libgnu_gpl.la ../gl/libgnu.la 
 libcmd_tpmtool_la_LIBADD += $(LTLIBREADLINE) $(INET_PTON_LIB) $(LIB_CLOCK_GETTIME)
 
 endif # ENABLE_TROUSERS
 
 noinst_PROGRAMS += systemkey
 systemkey_SOURCES = systemkey.c certtool-common.c common.c
-systemkey_LDADD = ../lib/libgnutls.la
+systemkey_LDADD = ../lib/libgnutls.la -ldl
 systemkey_LDADD += libcmd-systemkey.la ../gl/libgnu.la gl/libgnu_gpl.la
 systemkey_LDADD += $(COMMON_LIBS)
 
 noinst_LTLIBRARIES += libcmd-systemkey.la
 libcmd_systemkey_la_SOURCES = systemkey-tool-options.c systemkey-tool-options.h
-libcmd_systemkey_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la gl/libgnu_gpl.la ../gl/libgnu.la 
+libcmd_systemkey_la_LIBADD = libcerttool-cfg.la ../lib/libgnutls.la -ldl gl/libgnu_gpl.la ../gl/libgnu.la 
 libcmd_systemkey_la_LIBADD += $(LTLIBREADLINE) $(INET_PTON_LIB) $(LIB_CLOCK_GETTIME)
 
 noinst_LTLIBRARIES += libcerttool-cfg.la
